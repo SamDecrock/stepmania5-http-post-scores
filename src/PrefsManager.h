@@ -298,6 +298,9 @@ public:
 	Preference<bool>	m_bLogCheckpoints;
 	Preference<bool>	m_bShowLoadingWindow;
 	Preference<bool>	m_bPseudoLocalize;
+    
+    // score posting:
+    Preference<RString>	m_sUrlToPostScoresTo;
 
 #if !defined(WITHOUT_NETWORKING)
 	Preference<bool>	m_bEnableScoreboard;  //Alows disabling of scoreboard in network play

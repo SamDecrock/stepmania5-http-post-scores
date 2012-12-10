@@ -13,6 +13,7 @@
 #include "XmlFile.h"
 #include "CryptManager.h"
 #include "XmlFileUtil.h"
+#include "FileDownload.h"
 
 StatsManager*	STATSMAN = NULL;	// global object accessable from anywhere in the program
 
@@ -268,12 +269,49 @@ void StatsManager::CommitStatsToProfiles( const StageStats *pSS )
 
 		if(!GAMESTATE->m_bMultiplayer)
 		{
+            // Hack to post scores to external server:
+            // Sorry if my code sux, but c++ knowledge is very limited :-)
+            int playernr = 1;
+            std::ostringstream url;
+            
+            if( PREFSMAN->m_sUrlToPostScoresTo.Get() != "" )
+            {
+                url << PREFSMAN->m_sUrlToPostScoresTo.Get();
+            }
+            
+            
 			FOREACH_HumanPlayer( p )
 			{
+                if( PREFSMAN->m_sUrlToPostScoresTo.Get() != "" )
+                {
+                    int score = pSS->m_player[p].m_iScore;
+                
+                    if(playernr > 1){
+                        url << "&player";
+                    }else{
+                        url << "?player";
+                    }
+                    url << playernr;
+                    url << "=";
+                    url << score;
+                    playernr++;
+                }
+                
 				if( pSS->m_player[p].m_HighScore.IsEmpty() )
 					continue;
 				recent->AppendChild( MakeRecentScoreNode( *pSS, GAMESTATE->m_pCurTrail[p], pSS->m_player[p], MultiPlayer_Invalid ) );
 			}
+            
+            if( PREFSMAN->m_sUrlToPostScoresTo.Get() != "" )
+            {
+                RString str_url = url.str();
+                LOG->Info( "Posting to URL: %s", str_url.c_str() );
+                FileTransfer *m_pTransfer;
+                m_pTransfer = new FileTransfer();
+                m_pTransfer->StartDownload( str_url, "" );
+                m_pTransfer->Finish();
+                SAFE_DELETE(m_pTransfer);
+            }
 		}
 		else
 		{

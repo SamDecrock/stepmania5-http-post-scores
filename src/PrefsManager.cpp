@@ -289,7 +289,12 @@ PrefsManager::PrefsManager() :
 	m_bLogSkips			( "LogSkips",		false ),
 	m_bLogCheckpoints		( "LogCheckpoints",	false ),
 	m_bShowLoadingWindow		( "ShowLoadingWindow",	true ),
-	m_bPseudoLocalize		( "PseudoLocalize",	false )
+	m_bPseudoLocalize		( "PseudoLocalize",	false ),
+
+    /* Scores Posting */
+    m_sUrlToPostScoresTo		( "UrlToPostScoresTo",		"" )
+
+
 
 #if !defined(WITHOUT_NETWORKING)
 	,
