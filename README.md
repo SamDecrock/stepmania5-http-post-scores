@@ -9,7 +9,9 @@ Update your preferences.ini with the url of your choosing.
 On Mac OS X it's located at ~/Library/Preferences/StepMania 5/
 
 Change
+
 	UrlToPostScoresTo=http://localhost:3000/uploadscores
+
 to whatever you like
 
 ## How to run
