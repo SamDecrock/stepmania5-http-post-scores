@@ -6,6 +6,7 @@ Fork of Stepmania 5 (Xcode4.4 branch) that adds posting scores to a http webserv
 ## How to configure
 
 Update your preferences.ini with the url of your choosing.
+
 On Mac OS X it's located at ~/Library/Preferences/StepMania 5/
 
 Change
@@ -17,4 +18,5 @@ to whatever you like
 ## How to run
 
 Run the executable included or compile using Xcode 4.4
+
 Have fun!
